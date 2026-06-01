@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christian Cesar Baclayo — Automation & Python Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1117;
+    --bg-soft:#141b24;
+    --panel:#171f2a;
+    --ink:#e8edf2;
+    --muted:#8a98a8;
+    --accent:#4dd0c4;
+    --accent-2:#f0a868;
+    --line:#26303d;
+    --maxw:1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Sora',sans-serif;
+    font-weight:300;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(600px circle at 12% 8%, rgba(77,208,196,.10), transparent 55%),
+      radial-gradient(700px circle at 88% 18%, rgba(240,168,104,.08), transparent 55%);
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+  a{color:inherit;text-decoration:none}
+
+  /* nav */
+  nav{
+    position:sticky;top:0;z-index:20;
+    backdrop-filter:blur(10px);
+    background:rgba(13,17,23,.7);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:62px}
+  .brand{font-family:'Space Mono',monospace;font-weight:700;letter-spacing:.5px;font-size:.95rem}
+  .brand span{color:var(--accent)}
+  .nav-links{display:flex;gap:28px;font-size:.85rem;color:var(--muted)}
+  .nav-links a{transition:color .2s}
+  .nav-links a:hover{color:var(--accent)}
+  @media(max-width:640px){.nav-links{display:none}}
+
+  /* hero */
+  header{padding:110px 0 80px;position:relative}
+  .eyebrow{
+    font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:3px;
+    text-transform:uppercase;color:var(--accent);margin-bottom:22px;
+    opacity:0;animation:rise .8s .1s forwards;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:900;
+    font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.02;letter-spacing:-1.5px;
+    margin-bottom:24px;
+    opacity:0;animation:rise .8s .2s forwards;
+  }
+  h1 .accent{color:var(--accent);font-style:italic}
+  .lead{
+    font-size:clamp(1.05rem,2vw,1.3rem);color:var(--muted);max-width:680px;font-weight:300;
+    opacity:0;animation:rise .8s .35s forwards;
+  }
+  .lead strong{color:var(--ink);font-weight:600}
+  .cta{
+    margin-top:38px;display:flex;gap:16px;flex-wrap:wrap;
+    opacity:0;animation:rise .8s .5s forwards;
+  }
+  .btn{
+    font-family:'Space Mono',monospace;font-size:.85rem;letter-spacing:.5px;
+    padding:14px 26px;border-radius:2px;transition:transform .2s,box-shadow .2s;
+    display:inline-flex;align-items:center;gap:9px;
+  }
+  .btn-primary{background:var(--accent);color:#06231f;font-weight:700}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 30px -10px rgba(77,208,196,.5)}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* section scaffolding */
+  section{padding:72px 0;position:relative}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:44px}
+  .sec-num{font-family:'Space Mono',monospace;color:var(--accent);font-size:.9rem}
+  .sec-title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.7rem,4vw,2.4rem);letter-spacing:-.5px}
+  .divider{height:1px;background:linear-gradient(90deg,var(--line),transparent);border:0}
+
+  /* about / skills */
+  .grid-2{display:grid;grid-template-columns:1.2fr .9fr;gap:48px}
+  @media(max-width:780px){.grid-2{grid-template-columns:1fr;gap:36px}}
+  .about p{color:var(--muted);margin-bottom:18px;font-size:1.05rem}
+  .about p strong{color:var(--ink);font-weight:600}
+  .skillcard{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:26px}
+  .skillcard h3{font-family:'Space Mono',monospace;font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .skillcard h3:not(:first-child){margin-top:22px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .tag{font-family:'Space Mono',monospace;font-size:.74rem;padding:5px 11px;border:1px solid var(--line);border-radius:30px;color:var(--muted);transition:.2s}
+  .tag:hover{border-color:var(--accent);color:var(--ink)}
+
+  /* projects */
+  .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  @media(max-width:780px){.projects{grid-template-columns:1fr}}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:30px;
+    position:relative;overflow:hidden;transition:transform .3s,border-color .3s;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;width:100%;height:3px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    transform:scaleX(0);transform-origin:left;transition:transform .35s;
+  }
+  .card:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .card:hover::before{transform:scaleX(1)}
+  .card .idx{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--accent-2);margin-bottom:14px;display:block}
+  .card h4{font-family:'Fraunces',serif;font-weight:600;font-size:1.35rem;margin-bottom:12px;line-height:1.2}
+  .card p{color:var(--muted);font-size:.95rem;margin-bottom:18px}
+  .stack{display:flex;flex-wrap:wrap;gap:7px}
+  .stack span{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--ink);background:var(--bg-soft);border:1px solid var(--line);padding:4px 9px;border-radius:3px}
+  .card .live{display:inline-flex;align-items:center;gap:7px;margin-top:16px;font-family:'Space Mono',monospace;font-size:.78rem;color:var(--accent)}
+  .card .live::after{content:"\2197"}
+  .featured{grid-column:1 / -1;background:linear-gradient(135deg,var(--panel),var(--bg-soft))}
+
+  /* contact */
+  .contact{text-align:center;padding:90px 0 70px}
+  .contact h2{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-1px;margin-bottom:18px}
+  .contact h2 .accent{color:var(--accent);font-style:italic}
+  .contact p{color:var(--muted);max-width:520px;margin:0 auto 34px}
+  .contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted);font-family:'Space Mono',monospace;font-size:.78rem}
+
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">CCB<span>.</span>dev</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Automation &middot; Python &middot; Full-Stack</div>
+    <h1>Christian Cesar<br>Baclayo<span class="accent">.</span></h1>
+    <p class="lead">I build <strong>automations, dashboards, and apps</strong> that replace slow, manual work. Registered mechanical engineer turned developer — pairing deep industrial process knowledge with <strong>Python, n8n, React, and AI tooling</strong>.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#work">View my work</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap"><hr class="divider"></div>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">About</h2></div>
+    <div class="grid-2">
+      <div class="about reveal">
+        <p>I'm an automation developer based in <strong>Taganito, Claver</strong>, with 3+ years building real software inside a heavy-industrial nickel processing plant — and 10+ years of process operations experience behind it.</p>
+        <p>My pattern is simple: I find a process that's manual, laggy, or stuck in a giant Excel file, and I replace it with a <strong>fast, reliable app or automation</strong> — complete with approval flows, real-time dashboards, alarms, and automatic notifications.</p>
+        <p>Lately I work heavily with <strong>n8n workflow automation</strong>, <strong>Python</strong> backends, <strong>React (Vite)</strong> frontends, and <strong>AI tooling like Claude Code</strong> to ship faster.</p>
+      </div>
+      <div class="about reveal">
+        <div class="skillcard">
+          <h3>Currently</h3>
+          <p style="color:var(--muted);font-size:.95rem">Open to <strong style="color:var(--ink)">n8n automation</strong>, <strong style="color:var(--ink)">Python automation</strong>, and <strong style="color:var(--ink)">Claude Code / AI automation</strong> roles — remote-friendly.</p>
+          <h3>Credentials</h3>
+          <p style="color:var(--muted);font-size:.95rem">Registered Mechanical Engineer (PRC)<br>BS — USTP</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Toolkit</h2></div>
+    <div class="grid-2 reveal">
+      <div class="skillcard">
+        <h3>Automation &amp; Workflows</h3>
+        <div class="tags">
+          <span class="tag">n8n</span><span class="tag">Chatbots</span><span class="tag">Telegram bots</span>
+          <span class="tag">Webhooks &amp; APIs</span><span class="tag">AppSheet</span><span class="tag">Excel VBA</span>
+          <span class="tag">PWA</span><span class="tag">GoHighLevel</span>
+        </div>
+        <h3>AI &amp; LLM</h3>
+        <div class="tags">
+          <span class="tag">Claude Code</span><span class="tag">LLM APIs</span><span class="tag">AI agents</span><span class="tag">Prompt automation</span>
+        </div>
+      </div>
+      <div class="skillcard">
+        <h3>Languages &amp; Frameworks</h3>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">Dart</span>
+          <span class="tag">Django</span><span class="tag">FastAPI</span><span class="tag">Flask</span>
+          <span class="tag">React + Vite</span><span class="tag">Node.js</span><span class="tag">Flutter</span>
+        </div>
+        <h3>Data &amp; Storage</h3>
+        <div class="tags">
+          <span class="tag">MongoDB</span><span class="tag">SQLite</span><span class="tag">Firebase</span>
+          <span class="tag">Pandas</span><span class="tag">Plotly</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Selected Work</h2></div>
+    <div class="projects">
+
+      <div class="card featured reveal">
+        <span class="idx">★ Featured · Live</span>
+        <h4>GS Claver — Community Web App</h4>
+        <p>An installable, app-like website for a church community, built as a PWA with a real-time backend. Fast, mobile-first, and works like a native app.</p>
+        <div class="stack"><span>React + Vite</span><span>Firebase</span><span>SQL</span><span>PWA</span></div>
+        <a class="live" href="https://gsclaver.online" target="_blank" rel="noopener">gsclaver.online</a>
+      </div>
+
+      <div class="card reveal">
+        <span class="idx">01</span>
+        <h4>n8n Telegram Data-Alert Automation</h4>
+        <p>Detects when an Excel/data file is updated and automatically pushes the latest analysis to Telegram — instant team updates with zero manual sharing.</p>
+        <div class="stack"><span>n8n</span><span>Telegram API</span><span>Webhooks</span></div>
+      </div>
+
+      <div class="card reveal">
+        <span class="idx">02</span>
+        <h4>n8n AI Chatbot</h4>
+        <p>A conversational chatbot workflow that integrates messaging with LLM/API calls to answer queries and trigger actions automatically.</p>
+        <div class="stack"><span>n8n</span><span>LLM API</span><span>Automation</span></div>
+      </div>
+
+      <div class="card reveal">
+        <span class="idx">03</span>
+        <h4>Incident Management System</h4>
+        <p>Department-wide incident monitoring with a multi-step approval workflow, automatic emails on approval, and an image-rich dashboard that replaced flat Excel logs.</p>
+        <div class="stack"><span>Python</span><span>HTML</span><span>SQLite</span></div>
+      </div>
+
+      <div class="card reveal">
+        <span class="idx">04</span>
+        <h4>Hazard Observation App</h4>
+        <p>Company-wide safety reporting that replaced laggy, image-heavy Excel files with a fast web app — including a rectification approval system.</p>
+        <div class="stack"><span>Python</span><span>React</span><span>SQLite</span></div>
+      </div>
+
+      <div class="card reveal">
+        <span class="idx">05</span>
+        <h4>Real-Time Operation Monitoring</h4>
+        <p>Live operations dashboard with alarm annotations for immediate reminders and adjustments, installable as a progressive web app.</p>
+        <div class="stack"><span>Python</span><span>MongoDB</span><span>HTML5 / JS</span><span>PWA</span></div>
+      </div>
+
+      <div class="card reveal">
+        <span class="idx">06</span>
+        <h4>Safety Dashboard &amp; Shutdown Monitoring</h4>
+        <p>A centralized safety dashboard for fast reporting, plus an AppSheet + Google Sheets tool delivering real-time plant shutdown updates to teams.</p>
+        <div class="stack"><span>AppSheet</span><span>Google Sheets</span><span>Dashboards</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2>Let's build something<br>that <span class="accent">runs itself.</span></h2>
+    <p>Open to automation, Python, and AI development roles. Reach out — I reply fast.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:[email@example.com]">Email me</a>
+      <a class="btn btn-ghost" href="https://gsclaver.online" target="_blank" rel="noopener">gsclaver.online</a>
+      <a class="btn btn-ghost" href="[your GitHub URL]" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Christian Cesar Baclayo · Built with code, not templates</div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
